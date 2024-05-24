@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Syne:wght@400..800&display=swap');
+
+body {
+    font-family: 'Roboto mono', monospace !important;
+  }
+
+
+.top-left {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+    width: 80%;
+
+  }
+
+  .img-container {
+    position: relative;
+    text-align: center;
+    color: white;
+  }
+  .img-container img{
+    border-radius: 0.5rem;
+  }
+
+  .img-container .top-left{
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    background: rgb(34,193,195);
+    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(37,211,69,0.39548319327731096) 49%);
+    padding: 1rem;
+    text-align: left;
+    border-radius: 0.5rem;
+  }
+
+  .overlay{
+    position: absolute;
+    border-radius: 0.5rem;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2); /* Adjust opacity here */
+    pointer-events: none; /* Allows click-through to the image */
+  }
+
+  .image-with-shadow {
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5); /* Add your desired shadow values here */
+}
+
+
+.dropdown-item.active, .dropdown-item:active {
+  background-color: green !important; /* Replace "your-color" with your desired color */ 
+}
+
+
+/* datepicker */
+/* Increase the size of the datepicker */
+.datepicker {
+  font-size: 16px; /* Adjust the font size */
+}
+
+/* Increase the size of the days in the datepicker */
+.datepicker td, .datepicker th {
+  padding: 10px; /* Adjust the padding */
+}
+
+/* Increase the size of the month and year headers */
+.datepicker th.datepicker-switch {
+  font-size: 18px; /* Adjust the font size */
+  padding-top: 10px; /* Adjust the padding */
+  padding-bottom: 10px; /* Adjust the padding */
+}
+
+/* navbar button style */
+#loginButton{
+  color: green;
+}
+
+

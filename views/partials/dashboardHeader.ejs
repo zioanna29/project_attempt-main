@@ -1,0 +1,73 @@
+
+<!-- change the navbar-exapnd-{} to chnage sreen width it expands -->
+<nav class="navbar navbar-expand-sm text-right text-md-left">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Διαχείριση</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href=<%=addLink%>>Προσθήκη</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href=<%= alterLink %>>Τροποποίηση</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href=<%= removeLink %>>Διαγραφή</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-block  sidebar navbar navbar-expand-md col-sm-12 text-right text-md-left">
+
+        <div class="row  d-flex flex-column">
+          <span class="position-sticky text-md-left">
+            <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#sidebar" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </span>
+           
+          
+      
+          <div class="position-sticky collapse navbar-collapse" id="sidebar">
+            <ul class="nav flex-column">
+            
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/admin/agwnas">
+                  <span data-feather="home"></span>
+                  Αγώνας
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/omada">
+                  <span data-feather="file"></span>
+                  Ομάδα
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/atomo">
+                  <span data-feather="shopping-cart"></span>
+                  Άτομο
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/anakoinwsh">
+                  <span data-feather="users"></span>
+                  Ανακοίνωση
+                </a>
+              </li>
+            </ul>
+          </div>
+          
+      </nav>
+
+
+      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+
