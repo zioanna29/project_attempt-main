@@ -14,7 +14,7 @@ export async function diorganwseisFilter(req,res) {
     try {
       await model.getAllAnnouncements((err, rows) => {
         for (let i=0; i<rows.length; i++){
-          rows[i].dateannounced = rows[i].dateannounced.toISOString().split('T')[0];
+          rows[i].dateannounced = rows[i].dateannounced.toISOString().split('T')[0] ;
           rows[i].timeannounced = rows[i].timeannounced.slice(0, 5);
        }
         res.render('anakoinwseis/anakoinwseis.ejs', {data:rows});
