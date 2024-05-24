@@ -56,7 +56,7 @@ router.get("/", (req, res) => {
   matches.push(match);
   matches.push(match);
   
-  router.get("/diorganwseis", diorganwseisController.showEvents);
+  router.get("/diorganwseis", diorganwseisController.diorganwseisFilter);
   
   router.get("/statistika", (req, res) => {
     res.render("./agwnes/statistika.ejs");

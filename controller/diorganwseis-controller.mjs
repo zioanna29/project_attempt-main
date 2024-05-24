@@ -3,10 +3,10 @@ import * as model from "../model/local-championship-model.mjs"
 export async function diorganwseisFilter(req,res) {
     const startDate  = req.query.startDate;
     const endDate = req.query.endDate;
-    const kathgoria = req.query.kathgoria;
-    const agwnistikh = req.query.agwnistikh;
-    console.log(agwnistikh);
-    res.render('./agwnes/diorganwseis.ejs', {matches: await model.getAllMatches()});
+    const category = req.query.kathgoria;
+    const association = req.query.agwnistikh;
+    res.render('./agwnes/diorganwseis.ejs', {matches: await model.getAllMatches(startDate, endDate, category,association)});
+    
   }
 
 
