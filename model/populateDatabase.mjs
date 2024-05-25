@@ -45,7 +45,7 @@ export const insertData = async () => {
         let personIds = personResult.rows.map(row => row.id);
         // Insert into Committee table
         await client.query(`
-            INSERT INTO Committee (Type, Position, Person_Id) VALUES 
+            INSERT INTO Committee (Type, Position, id) VALUES 
             ('Finance', 'Treasurer', $1),
             ('Event', 'Coordinator', $2),
             ('Management', 'Chairman', $3),
@@ -131,11 +131,11 @@ export const insertData = async () => {
 
         // Insert into Field table
         await client.query(`
-            INSERT INTO Field (Location, Name, Type, Capacity, ClubName) VALUES 
-            ('Downtown', 'Field A', 'Grass', 10000, 'Club A'),
-            ('Uptown', 'Field B', 'Synthetic', 15000, 'Club B'),
-            ('Midtown', 'Field C', 'Grass', 12000, 'Club C'),
-            ('Suburb', 'Field D', 'Synthetic', 8000, 'Club D');
+            INSERT INTO Field (Location, Name, Type, Capacity) VALUES 
+            ('Downtown', 'Field A', 'Grass', 10000),
+            ('Uptown', 'Field B', 'Synthetic', 15000),
+            ('Midtown', 'Field C', 'Grass', 12000),
+            ('Suburb', 'Field D', 'Synthetic', 8000);
         `);
 
         let matchResult;
@@ -159,16 +159,7 @@ export const insertData = async () => {
             ('2020-11-20', '2022-11-20', $4, 'Club D');
         `,footballerIds);
 
-      let judgesIds = refereeIds.concat(matchIds);
-      judgesIds.splice(3,1);
-
-        // Insert into Judges table
-        await client.query(`
-            INSERT INTO Judges (RefereeId, MatchId) VALUES 
-            ($1, $4),
-            ($2, $5),
-            ($3, $6);
-        `,judgesIds);
+ 
 
         let ParticipatesIds = footballerIds.concat(matchIds);
         // Insert into Participates table
@@ -182,7 +173,7 @@ export const insertData = async () => {
 
         // Insert into Play table
         await client.query(`
-            INSERT INTO Play (IdHome, IdAway, Time, Date, FieldName, MatchId) VALUES 
+            INSERT INTO Play (ClubHome, ClubAway, Time, Date, FieldName, MatchId) VALUES 
             ('Club A', 'Club B', '18:00', '2023-05-15', 'Field A', $1),
             ('Club B', 'Club A', '20:00', '2023-06-20', 'Field B', $2),
             ('Club C', 'Club D', '19:00', '2023-07-10', 'Field C', $3),
