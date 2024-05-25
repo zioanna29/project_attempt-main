@@ -31,6 +31,7 @@ export async function diorganwseisFilter(req,res,next) {
      }
 }
 
+
 export async function showEvents(req, res,next) {
    try {
       await model.getEvents((err, rows) => {
@@ -38,7 +39,7 @@ export async function showEvents(req, res,next) {
             rows[i].date = rows[i].date.toISOString().split('T')[0];
             rows[i].time = rows[i].time.slice(0, 5);
          }
-         res.render("agwnes/diorganwseis.ejs", {matches:rows});
+         res.render("./agwnes/diorganwseis.ejs", {matches:rows});
       });
     }
    catch (err) {
