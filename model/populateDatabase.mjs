@@ -180,6 +180,13 @@ export const insertData = async () => {
             ('Club D', 'Club C', '21:00', '2023-08-25', 'Field D', $4);
         `,matchIds);
 
+        client.query(`
+        INSERT INTO Announcement (Title, TextInput, DateAnnounced, TimeAnnounced, AdminId) VALUES 
+        ('Announcement 1', 'Lorem ipsum dolor sit amet.', '2023-05-15', '09:00', $1),
+        ('Announcement 2', 'Lorem ipsum dolor sit amet.', '2023-05-20', '10:00', $2),
+        ('Announcement 3', 'Lorem ipsum dolor sit amet.', '2023-05-25', '11:00', $3);
+    `,personIds);
+
         console.log('Data inserted successfully.');
     } catch (err) {
         console.error('Error inserting data:', err);
