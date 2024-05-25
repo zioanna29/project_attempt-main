@@ -21,7 +21,6 @@ CREATE TABLE Footballer (
     Id INT PRIMARY KEY REFERENCES Person(Id)
 );
 
-DROP TABLE Administrator;
 CREATE TABLE Administrator (
     Id INT PRIMARY KEY REFERENCES Person(Id) ON UPDATE CASCADE,
     password_hash VARCHAR(100) NOT NULL,
