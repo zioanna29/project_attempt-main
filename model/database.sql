@@ -7,22 +7,23 @@ CREATE TABLE Person (
 );
 
 CREATE TABLE Committee (
-    Id SERIAL PRIMARY KEY,
+    Id SERIAL PRIMARY KEY REFERENCES PERSON(Id)
+	ON DELETE CASCADE ON UPDATE CASCADE,
     Type VARCHAR(100),
-    Position VARCHAR(100),
-    Person_Id INT REFERENCES Person(Id)
+    Position VARCHAR(100)
 );
 
 CREATE TABLE Referee (
     Id INT PRIMARY KEY REFERENCES Person(Id)
+	ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Footballer (
-    Id INT PRIMARY KEY REFERENCES Person(Id)
+    Id SERIAL PRIMARY KEY REFERENCES Person(Id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Administrator (
-    Id INT PRIMARY KEY REFERENCES Person(Id) ON UPDATE CASCADE,
+    Id INT PRIMARY KEY REFERENCES Person(Id) ON DELETE CASCADE ON UPDATE CASCADE,
     password_hash VARCHAR(100) NOT NULL,
     PhoneNum VARCHAR(20),
     Email VARCHAR(100),
@@ -32,16 +33,16 @@ CREATE TABLE Administrator (
 CREATE TABLE Club (
     Name VARCHAR(100) PRIMARY KEY,
     Email VARCHAR(100),
-    Address VARCHAR(255)
+    Address VARCHAR(255),
+	Homeground_field VARCHAR(100) REFERENCES Field(name)
+	ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Field (
     Location VARCHAR(100) NOT NULL,
     Name VARCHAR(100) NOT NULL UNIQUE,
     Type VARCHAR(100),
-    Capacity INT,
-    ClubName VARCHAR(100),
-    FOREIGN KEY (ClubName) REFERENCES Club(Name)
+    Capacity INT
 );
 
 CREATE TABLE Match (
@@ -49,7 +50,13 @@ CREATE TABLE Match (
     Category VARCHAR(100),
     Season VARCHAR(100),
     Association VARCHAR(100),
-    MatchResult VARCHAR(100)
+    MatchResult VARCHAR(100),
+	JudgeId INT REFERENCES Referee(Id)
+	ON DELETE CASCADE ON UPDATE CASCADE,
+	Date_played DATE,
+	Time_played TIME,
+	Field_name VARCHAR(100) REFERENCES Field(Name)
+	ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -58,17 +65,11 @@ CREATE TABLE Belongs (
     LastDate DATE,
     FootballerId INT,
     ClubName VARCHAR(100),
-    FOREIGN KEY (FootballerId) REFERENCES Footballer(Id),
-    FOREIGN KEY (ClubName) REFERENCES Club(Name)
+    FOREIGN KEY (FootballerId) REFERENCES Footballer(Id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (ClubName) REFERENCES Club(Name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
-CREATE TABLE Judges (
-    RefereeId INT,
-    MatchId INT,
-    FOREIGN KEY (RefereeId) REFERENCES Referee(Id),
-    FOREIGN KEY (MatchId) REFERENCES Match(MatchId)
-);
 
 CREATE TABLE Participates (
     MinutesPlayed INT,
@@ -78,23 +79,32 @@ CREATE TABLE Participates (
     OwnGoals INT,
     FootballerId INT,
     MatchId INT,
-    FOREIGN KEY (FootballerId) REFERENCES Footballer(Id),
-    FOREIGN KEY (MatchId) REFERENCES Match(MatchId)
+	PRIMARY KEY (FootballerId,MatchId),
+    FOREIGN KEY (FootballerId) REFERENCES Footballer(Id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (MatchId) REFERENCES Match(MatchId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Play (
-    IdHome VARCHAR(100),
-    IdAway VARCHAR(100),
+    ClubHome VARCHAR(100),
+    ClubAway VARCHAR(100),
     Time TIME,
     Date DATE,
     FieldName VARCHAR(100),
     MatchId INT,
-    FOREIGN KEY (IdHome) REFERENCES Club(Name),
-    FOREIGN KEY (IdAway) REFERENCES Club(Name),
-    FOREIGN KEY (FieldName) REFERENCES Field(Name),
-    FOREIGN KEY (MatchId) REFERENCES Match(MatchId)
+	PRIMARY KEY(MatchId,FieldName,ClubHome,ClubAway),
+    FOREIGN KEY (ClubHome) REFERENCES Club(Name) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (ClubAway) REFERENCES Club(Name) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (FieldName) REFERENCES Field(Name) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (MatchId) REFERENCES Match(MatchId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
-
+CREATE TABLE Announcement (
+	Code SERIAL NOT NULL PRIMARY KEY,
+	Title VARCHAR(100),
+	TextInput VARCHAR(100),
+	DateAnnounced DATE,
+	TimeAnnounced TIME,
+	AdminId INT REFERENCES Administrator(Id)
+	ON DELETE CASCADE ON UPDATE CASCADE
+);
 

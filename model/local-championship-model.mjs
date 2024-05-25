@@ -22,6 +22,15 @@ const pool = new pg.Pool({
     }
   }
 
+  //will populate database for testing
+//run resetDatabase in postgre
+//and set insertData to true in order to populate db
+import * as populate from "./populateDatabase.mjs"
+const insertData = false;
+if (insertData) {
+  populate.insertData();
+}
+
   export let getAllMatches = async(startDate="", endDate="", category_string = "", association_string="") =>{
     const matches = [];
     // const match = {
