@@ -1,16 +1,21 @@
 import * as model from "../model/local-championship-model.mjs"
 
-export async function diorganwseisFilter(req,res) {
-    const startDate  = req.query.startDate;
-    const endDate = req.query.endDate;
-    const category = req.query.kathgoria;
-    const association = req.query.agwnistikh;
-    res.render('./agwnes/diorganwseis.ejs', {matches: await model.getAllMatches(startDate, endDate, category,association)});
-    
+export async function diorganwseisFilter(req,res,next) {
+   try{
+      const startDate  = req.query.startDate;
+      const endDate = req.query.endDate;
+      const category = req.query.kathgoria;
+      const association = req.query.agwnistikh;
+      res.render('./agwnes/diorganwseis.ejs', {matches: await model.getAllMatches(startDate, endDate, category,association)});
+      
+   }catch(err){
+      next(err);
+   }
+   
   }
 
 
-  export async function showAnnouncements(req, res) {
+  export async function showAnnouncements(req, res,next) {
     try {
       await model.getAllAnnouncements((err, rows) => {
         for (let i=0; i<rows.length; i++){
@@ -22,11 +27,11 @@ export async function diorganwseisFilter(req,res) {
       //res.render('../views/anakoinwseis/anakoinwseis.ejs',{announcement:announcements});
      }
      catch (err) {
-        res.send(err);
+        next(err);
      }
 }
 
-export async function showEvents(req, res) {
+export async function showEvents(req, res,next) {
    try {
       await model.getEvents((err, rows) => {
          for (let i=0; i<rows.length; i++){
@@ -37,7 +42,7 @@ export async function showEvents(req, res) {
       });
     }
    catch (err) {
-      res.send(err);
+      next(err);
    }
 }
 

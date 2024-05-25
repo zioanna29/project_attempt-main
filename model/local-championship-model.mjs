@@ -87,7 +87,7 @@ const pool = new pg.Pool({
     }
   }
   catch (err) {
-    res.send(err);
+    throw(err);
 
   }
     return matches;
