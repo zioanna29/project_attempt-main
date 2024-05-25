@@ -159,15 +159,15 @@ router.get("/", (req, res) => {
     res.render("./admin/deleteAgwnas.ejs");
   });
 
-// router.route('/login').get(logInController.checkAuthenticated, logInController.showLogInForm);
+router.route('/login').get(logInController.checkAuthenticated, logInController.showLogInForm);
 
-// router.route('/login').post(logInController.doLogin);
+router.route('/login').post(logInController.doLogin);
   
-// router.route('/logout').get(logInController.doLogout);
+router.route('/logout').get(logInController.doLogout);
   
-// router.route('/register').get(logInController.checkAuthenticated, logInController.showRegisterForm);
+router.route('/register').get(logInController.checkAuthenticated, logInController.showRegisterForm);
   
-// router.post('/register', logInController.doRegister);
+router.post('/register', logInController.doRegister);
   
 
   export default router;
