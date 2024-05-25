@@ -1,9 +1,10 @@
-//import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt'
 
 import * as userModel from "../model/local-championship-model.mjs"
 
 export let showLogInForm = function (req, res) {
-    res.render('login-password', { model: process.env.MODEL });
+    console.log("before render")
+    res.render('/login', { model: process.env.MODEL });
 }
 
 export let showRegisterForm = function (req, res) {
@@ -59,6 +60,7 @@ export let doLogout = (req, res) => {
 
 //Τη χρησιμοποιούμε για να ανακατευθύνουμε στη σελίδα /login όλα τα αιτήματα από μη συνδεδεμένους χρήστες
 export let checkAuthenticated = function (req, res, next) {
+    console.log("alo")
     //Αν η μεταβλητή συνεδρίας έχει τεθεί, τότε ο χρήστης είναι συνεδεμένος
     if (req.session.loggedUserId) {
         console.log("user is authenticated", req.originalUrl);

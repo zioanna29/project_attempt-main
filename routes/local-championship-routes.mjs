@@ -96,9 +96,9 @@ router.get("/", (req, res) => {
     res.render("./genika/epitropes.ejs");
   });
   
-  router.get("/login", (req, res) => {
-    res.render("./login.ejs");
-  });
+  // router.get("/login", (req, res) => {
+  //   res.render("./login.ejs");
+  // });
   
   router.get("/register", (req, res) => {
     res.render("./register.ejs");
@@ -116,16 +116,16 @@ router.get("/", (req, res) => {
     res.redirect("/");
   })
   
-  router.post("/login", async(req, res)=>{
-    // login logic here
-  })
+  // router.post("/login", async(req, res)=>{
+  //   // login logic here
+  // })
   
   
-  router.post("/login", async(req, res)=>{
-    const email = req.body.username;
-    const password = req.body.password;
+  // router.post("/login", async(req, res)=>{
+  //   const email = req.body.username;
+  //   const password = req.body.password;
   
-  });
+  // });
 
   router.get("/admin/agwnas", (req,res) =>{
     res.render("./admin/agwnas.ejs");
@@ -165,9 +165,9 @@ router.route('/login').post(logInController.doLogin);
   
 router.route('/logout').get(logInController.doLogout);
   
-router.route('/register').get(logInController.checkAuthenticated, logInController.showRegisterForm);
+// router.route('/register').get(logInController.checkAuthenticated, logInController.showRegisterForm);
   
-router.post('/register', logInController.doRegister);
+// router.post('/register', logInController.doRegister);
   
 
   export default router;
