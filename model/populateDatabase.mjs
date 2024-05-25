@@ -141,11 +141,11 @@ export const insertData = async () => {
         let matchResult;
         // Insert into Match table
         matchResult = await client.query(`
-            INSERT INTO Match (Category, Season, Association, MatchResult) VALUES 
-            ('Premier', '2023', 'Association A', '2-1'),
-            ('Championship', '2023', 'Association B', '1-1'),
-            ('League One', '2023', 'Association C', '3-0'),
-            ('League Two', '2023', 'Association D', '0-0')
+            INSERT INTO Match (Category, Season, Association) VALUES 
+            ('Premier', '2023', 'Association A'),
+            ('Championship', '2023', 'Association B'),
+            ('League One', '2023', 'Association C'),
+            ('League Two', '2023', 'Association D')
             RETURNING MatchId;
         `);
         let matchIds = matchResult.rows.map(row => row.matchid);
@@ -173,11 +173,11 @@ export const insertData = async () => {
 
         // Insert into Play table
         await client.query(`
-            INSERT INTO Play (ClubHome, ClubAway, Time, Date, FieldName, MatchId) VALUES 
-            ('Club A', 'Club B', '18:00', '2023-05-15', 'Field A', $1),
-            ('Club B', 'Club A', '20:00', '2023-06-20', 'Field B', $2),
-            ('Club C', 'Club D', '19:00', '2023-07-10', 'Field C', $3),
-            ('Club D', 'Club C', '21:00', '2023-08-25', 'Field D', $4);
+            INSERT INTO Play (ClubHome, ClubAway, FieldName, MatchId) VALUES 
+            ('Club A', 'Club B', 'Field A', $1),
+            ('Club B', 'Club A', 'Field B', $2),
+            ('Club C', 'Club D', 'Field C', $3),
+            ('Club D', 'Club C', 'Field D', $4);
         `,matchIds);
 
         client.query(`
