@@ -2,6 +2,7 @@ import express from 'express';
 
 import * as diorganwseisController from "../controller/diorganwseis-controller.mjs"
 import * as adminController from "../controller/admin-controller.mjs"
+import * as logInController from '../controller/login-controller.mjs';
 
 const router = express.Router();
 
@@ -158,6 +159,15 @@ router.get("/", (req, res) => {
     res.render("./admin/deleteAgwnas.ejs");
   });
 
+// router.route('/login').get(logInController.checkAuthenticated, logInController.showLogInForm);
 
+// router.route('/login').post(logInController.doLogin);
+  
+// router.route('/logout').get(logInController.doLogout);
+  
+// router.route('/register').get(logInController.checkAuthenticated, logInController.showRegisterForm);
+  
+// router.post('/register', logInController.doRegister);
+  
 
   export default router;

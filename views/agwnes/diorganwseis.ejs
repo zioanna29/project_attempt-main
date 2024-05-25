@@ -94,8 +94,12 @@
 
 
 <table class="table table-striped table-responsive">
-    <caption class="caption-top">Διοργανώσεις</caption>
-    <tr><th>Αγώνας</th>
+    <caption class="caption-top">Διοργανώσεις
+        <% if (association != "") { %> | <%= association%>ος όμιλος <% } %> 
+        <% if (category != "") { %> | <%= category%> κατηγορία <% } %> 
+        <% if (startDate != "") { %> | από <%= startDate %> μέχρι <%= endDate%> <% } %> 
+    
+    </caption>
         <th>Γήπεδο</th>
         <th>Ημερομηνία</th>
         <th>'Ωρα</th>

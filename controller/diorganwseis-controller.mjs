@@ -6,7 +6,7 @@ export async function diorganwseisFilter(req,res,next) {
       const endDate = req.query.endDate;
       const category = req.query.kathgoria;
       const association = req.query.agwnistikh;
-      res.render('./agwnes/diorganwseis.ejs', {matches: await model.getAllMatches(startDate, endDate, category,association)});
+      res.render('./agwnes/diorganwseis.ejs', {matches: await model.getAllMatches(startDate, endDate, category,association), association:association, category:category, startDate:startDate, endDate:endDate});
       
    }catch(err){
       next(err);
