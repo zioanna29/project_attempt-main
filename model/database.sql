@@ -30,6 +30,13 @@ CREATE TABLE Administrator (
     Address VARCHAR(255)
 );
 
+CREATE TABLE Field (
+    Location VARCHAR(100) NOT NULL,
+    Name VARCHAR(100) NOT NULL UNIQUE,
+    Type VARCHAR(100),
+    Capacity INT
+);
+
 CREATE TABLE Club (
     Name VARCHAR(100) PRIMARY KEY,
     Email VARCHAR(100),
@@ -38,23 +45,17 @@ CREATE TABLE Club (
 	ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE Field (
-    Location VARCHAR(100) NOT NULL,
-    Name VARCHAR(100) NOT NULL UNIQUE,
-    Type VARCHAR(100),
-    Capacity INT
-);
+
 
 CREATE TABLE Match (
     MatchId SERIAL PRIMARY KEY,
     Category VARCHAR(100),
     Season VARCHAR(100),
     Association VARCHAR(100),
-    MatchResult VARCHAR(100),
 	JudgeId INT REFERENCES Referee(Id)
 	ON DELETE CASCADE ON UPDATE CASCADE,
-	Date_played DATE,
-	Time_played TIME,
+	Date DATE,
+	Time TIME,
 	Field_name VARCHAR(100) REFERENCES Field(Name)
 	ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -87,8 +88,6 @@ CREATE TABLE Participates (
 CREATE TABLE Play (
     ClubHome VARCHAR(100),
     ClubAway VARCHAR(100),
-    Time TIME,
-    Date DATE,
     FieldName VARCHAR(100),
     MatchId INT,
 	PRIMARY KEY(MatchId,FieldName,ClubHome,ClubAway),
@@ -107,4 +106,6 @@ CREATE TABLE Announcement (
 	AdminId INT REFERENCES Administrator(Id)
 	ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 
