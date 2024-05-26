@@ -7,7 +7,6 @@ if (isDarkModeEnabled) {
   // Otherwise, ensure light mode is set
   setDarkMode(false);
 }
-
 // Function to set dark mode
 function setDarkMode(enabled) {
   if (enabled) {
