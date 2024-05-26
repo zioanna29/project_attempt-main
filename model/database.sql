@@ -100,7 +100,7 @@ CREATE TABLE Play (
 CREATE TABLE Announcement (
 	Code SERIAL NOT NULL PRIMARY KEY,
 	Title VARCHAR(100),
-	TextInput VARCHAR(100),
+	TextInput VARCHAR(1000),
 	DateAnnounced DATE,
 	TimeAnnounced TIME,
 	AdminId INT REFERENCES Administrator(Id)
