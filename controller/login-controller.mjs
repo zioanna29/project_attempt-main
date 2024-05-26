@@ -27,11 +27,7 @@ export let doRegister = async function (req, res) {
 }
 
 export let doLogin = async function (req, res) {
-    //Ελέγχει αν το username και το password είναι σωστά και εκτελεί την
-    //συνάρτηση επιστροφής authenticated
-
     const user = await userModel.getUserByUsername(req.body.username);
-    console.log(user)
     if (user == undefined || !user.password_hash || !user.id) {
         res.render('login');
     }
@@ -55,8 +51,6 @@ export let doLogin = async function (req, res) {
 }
 
 export let doLogout = (req, res) => {
-    console.log("logged out")
-
     //Σημειώνουμε πως ο χρήστης δεν είναι πια συνδεδεμένος
     req.session.destroy();
     res.redirect('/');

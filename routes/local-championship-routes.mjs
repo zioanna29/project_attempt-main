@@ -6,7 +6,6 @@ import * as logInController from '../controller/login-controller.mjs';
 
 const router = express.Router();
 
-//router.use(express.urlencoded({extended:true}))
 //Get Homepage
 router.get("/", (req, res) => {
     res.render("index.ejs");
@@ -15,16 +14,7 @@ router.get("/", (req, res) => {
   router.get("/admin", (req, res) => {
     res.render("admin.ejs");
   });
-  
-  router.get("/page2", (req, res) => {
-    res.render("page2.ejs");
-  });
-  
-  // anakoinwseis
-  // router.get("/anakoinwseis", (req, res) => {
-  //   res.render("./anakoinwseis/anakoinwseis.ejs");
-  // });
-  
+ 
   router.get('/anakoinwseis', diorganwseisController.showAnnouncements);
 
   // agwnes
@@ -96,10 +86,6 @@ router.get("/", (req, res) => {
     res.render("./genika/epitropes.ejs");
   });
   
-  // router.get("/login", (req, res) => {
-  //   res.render("./login.ejs");
-  // });
-  
   router.get("/register", (req, res) => {
     res.render("./register.ejs");
   })
@@ -115,17 +101,6 @@ router.get("/", (req, res) => {
     console.log(result);
     res.redirect("/");
   })
-  
-  // router.post("/login", async(req, res)=>{
-  //   // login logic here
-  // })
-  
-  
-  // router.post("/login", async(req, res)=>{
-  //   const email = req.body.username;
-  //   const password = req.body.password;
-  
-  // });
 
   router.get("/admin/agwnas", (req,res) =>{
     res.render("./admin/addAgwnas.ejs");
@@ -191,5 +166,4 @@ router.route('/logout').get(logInController.doLogout);
   
 // router.post('/register', logInController.doRegister);
   
-
-  export default router;
+export default router;
