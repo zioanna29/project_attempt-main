@@ -19,14 +19,8 @@ try{
 }
 
 
-// ('Charlie Black', '1988-01-15', 'M'),
-// ('Daisy White', '1992-04-25', 'F'),
-// ('Eve Green', '1983-07-11', 'F'),
-// ('Frank Blue', '1978-12-05', 'M')
-
 export const insertData = async () => {
     try {
-        // Connect to the database
         
         let personResult;
 
@@ -191,8 +185,7 @@ export const insertData = async () => {
     } catch (err) {
         console.error('Error inserting data:', err);
     } finally {
-        // Close the database connection
         await client.end();
     }
 };
-// Execute the data insertion function
+

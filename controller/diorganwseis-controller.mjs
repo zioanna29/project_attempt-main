@@ -17,8 +17,6 @@ export async function diorganwseisFilter(req,res,next) {
   export async function showAnnouncements(req, res,next) {
     try {
         res.render('anakoinwseis/anakoinwseis.ejs', {data: await model.getAllAnnouncements()});
-      // });
-      //res.render('../views/anakoinwseis/anakoinwseis.ejs',{announcement:announcements});
      }
      catch (err) {
         next(err);

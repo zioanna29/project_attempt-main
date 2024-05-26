@@ -21,8 +21,7 @@ export let doRegister = async function (req, res) {
         }
     } catch (error) {
         console.error('registration error: ' + error);
-        //FIXME: δε θα έπρεπε να περνάμε το εσωτερικό σφάλμα στον χρήστη
-        res.render('register-password', { message: error });
+        next(error);
     }
 }
 
@@ -36,10 +35,7 @@ export let doLogin = async function (req, res) {
 
         if (req.body.password === user.password_hash) {
             const userId = req.session.loggedUserId;
-            //Θέτουμε τη μεταβλητή συνεδρίας "loggedUserId"
             req.session.loggedUserId = user.id;
-            //Αν έχει τιμή η μεταβλητή req.session.originalUrl, αλλιώς όρισέ τη σε "/" 
-            // res.redirect("/");            
             const redirectTo = req.session.originalUrl || "/admin/anakoinwsh/addAnakoinwsh";
 
             res.redirect(redirectTo);
@@ -51,27 +47,20 @@ export let doLogin = async function (req, res) {
 }
 
 export let doLogout = (req, res) => {
-    //Σημειώνουμε πως ο χρήστης δεν είναι πια συνδεδεμένος
     req.session.destroy();
     res.redirect('/');
 }
 
-//Τη χρησιμοποιούμε για να ανακατευθύνουμε στη σελίδα /login όλα τα αιτήματα από μη συνδεδεμένους χρήστες
 export let checkAuthenticated = function (req, res, next) {
-    //Αν η μεταβλητή συνεδρίας έχει τεθεί, τότε ο χρήστης είναι συνεδεμένος
     if (req.session.loggedUserId) {
         console.log("user is authenticated", req.originalUrl);
-        //Καλεί τον επόμενο χειριστή (handler) του αιτήματος
         next();
     }
     else {
-        //Ο χρήστης δεν έχει ταυτοποιηθεί, αν απλά ζητάει το /login ή το register δίνουμε τον
-        //έλεγχο στο επόμενο middleware που έχει οριστεί στον router
         if ((req.originalUrl === "/login") || (req.originalUrl === "/register")) {
             next()
         }
         else {
-            //Στείλε το χρήστη στη "/login" 
             console.log("not authenticated, redirecting to /login")
             res.redirect('/login');
         }

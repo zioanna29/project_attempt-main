@@ -1,6 +1,6 @@
 import pg from "pg";
 import env from "dotenv";
-//import * as populate from "./populateDatabase.mjs";
+import * as populate from "./populateDatabase.mjs";
 
 env.config();
 
@@ -18,7 +18,7 @@ async function connect() {
         return client;
     } catch (e) {
         console.error(`Failed to connect! ${e}`);
-        throw e; // Re-throw the error to be handled by the caller
+        throw e; 
     }
 }
 
@@ -79,7 +79,7 @@ export async function getAllMatches(startDate = "", endDate = "", category_strin
         }
     } catch (err) {
         console.error('Error fetching matches:', err);
-        throw err; // Re-throw the error to be handled by the caller
+        throw err; 
     }
     return matches;
 }
@@ -96,10 +96,10 @@ export async function getAllAnnouncements() {
             res.rows[i].timeannounced = res.rows[i].timeannounced.slice(0, 5);
             announcements.push(res.rows[i]);
         }
-         // Return the array directly
+      
     } catch (err) {
         console.error('Error fetching announcements:', err);
-        throw err; // Re-throw the error to be handled by the caller
+        throw err; 
     }
     return announcements;
 }
@@ -112,7 +112,7 @@ export async function newAnnouncement(announcement, callback) {
         const client = await connect();
         const res = await client.query(sql)
         await client.release()
-        callback(null, res.rows) // επιστρέφει array
+        callback(null, res.rows)
     }
     catch (err) {
         callback(err, null);
@@ -125,7 +125,7 @@ export async function deleteAnnouncement(announcement, callback) {
         const client = await connect();
         const res = await client.query(sql)
         await client.release()
-        callback(null, res.rows) // επιστρέφει array
+        callback(null, res.rows)
     }
     catch (err) {
         callback(err, null);
@@ -136,7 +136,7 @@ export async function alterAnnouncement(announcement, callback) {
     const sql_update = `UPDATE Announcement`;
     let sql_set = ` SET `;
     let sql_where = ` WHERE "code"='${announcement.code}';`;
-    // SET "title" = '${book.title}', author = '${book.author}', comment = '${book.comment}'
+   
 
     if(announcement.title != ""){
         sql_set += `"title" = '${announcement.title}', `;
@@ -158,76 +158,16 @@ export async function alterAnnouncement(announcement, callback) {
 
     try {
         const client = await connect();
-        const res = await client.query(sql_update+sql_set+sql_where)
-        await client.release()
-        callback(null, res.rows) // επιστρέφει array
-    }
-    catch (err) {
+        const res = await client.query(sql_update+sql_set+sql_where);
+        await client.release();
+        callback(null, res.rows);
+    } catch (err) {
         callback(err, null);
     }
 }
 
 
-/**************************************************************************/
 
-
-// export let findUserByUsernamePassword = async (userID=null, email=null, password_hash) => {
-//     //Φέρε μόνο μια εγγραφή (το LIMIT 0, 1) που να έχει username και password ίσο με username και password 
-//     // const stmt = await sql.prepare("SELECT username FROM user WHERE username = ? and password = ? LIMIT 0, 1");
-//     // try {
-//     //     const user = await stmt.all(username, password);
-//     // } catch (err) {
-//     //     throw err;
-//     // }
-
-//     const sql = `SELECT email FROM administrator WHERE email = '${email}' and password = '${password_hash}' LIMIT 0, 1`
-//     console.log('new sql...', sql)
-//     try {
-//         const client = await connect();
-//         // console.log('theclient...', client)
-//         const res = await client.query(sql);
-//         if (res.rows.length === 0) {
-//             // αν ο χρήστης δεν υπάρχει, πρέπει να δημιουργηθεί
-//             await client.release();
-//             await insertUser(userName, (err, newUser) => {
-//                 console.log("newuser", newUser);
-//                 if (err) {
-//                     callback(err, null);
-//                 } else
-//                     findUser(userID, userName, callback);
-//             });
-//         }
-//         else {
-//             console.log(`user found`);
-//             callback(null, [{ "userName": userName || res.rows[0].userName, "userID": userID || res.rows[0].userID }]) // επιστρέφει array
-//         }
-//     }
-//     catch (err) {
-//         console.log(err);
-//         callback(err, null);
-//     }
-// }
-
-// //Η συνάρτηση δημιουργεί έναν νέο χρήστη
-// export let registerUserNoPass = async function (username) {
-//     // ελέγχουμε αν υπάρχει χρήστης με αυτό το username
-//     const userId = getUserByUsername(username);
-//     if (userId != undefined) {
-//         return { message: "Υπάρχει ήδη χρήστης με αυτό το όνομα" };
-//     } else {
-//         try {
-//             const stmt = await sql.prepare('INSERT INTO user VALUES (null, ?, ?)');
-//             const info = await stmt.run(username, username);
-//             return info.lastInsertRowid;
-//         } catch (err) {
-//             throw err;
-//         }
-//     }
-// }
-
-// /**
-//  * Επιστρέφει τον χρήστη με όνομα 'username'
-//  */
 export let getUserByUsername = async (username) => {
  
     const sql = `SELECT id, email, password_hash FROM administrator WHERE email = '${username}'`
@@ -244,20 +184,3 @@ export let getUserByUsername = async (username) => {
     }
 }
 
-// //Η συνάρτηση δημιουργεί έναν νέο χρήστη με password
-// export let registerUser = async function (username, password) {
-//     // ελέγχουμε αν υπάρχει χρήστης με αυτό το username
-//     const userId = await getUserByUsername(username);
-//     if (userId != undefined) {
-//         return { message: "Υπάρχει ήδη χρήστης με αυτό το όνομα" };
-//     } else {
-//         try {
-//             const hashedPassword = await bcrypt.hash(password, 10);
-//             const stmt = await sql.prepare('INSERT INTO user VALUES (null, ?, ?)');
-//             const info = await stmt.run(username, hashedPassword);
-//             return info.lastID;
-//         } catch (error) {
-//             throw error;
-//         }
-//     }
-// }
