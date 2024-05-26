@@ -40,7 +40,7 @@ export let doLogin = async function (req, res) {
             req.session.loggedUserId = user.id;
             //Αν έχει τιμή η μεταβλητή req.session.originalUrl, αλλιώς όρισέ τη σε "/" 
             // res.redirect("/");            
-            const redirectTo = req.session.originalUrl || "/";
+            const redirectTo = req.session.originalUrl || "/admin/anakoinwsh/addAnakoinwsh";
 
             res.redirect(redirectTo);
         }
