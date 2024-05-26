@@ -132,16 +132,27 @@ export const insertData = async () => {
             ('Suburb', 'Field D', 'Synthetic', 8000);
         `);
 
+
+        let matchRefereesIds = [...refereeIds];
+        matchRefereesIds.push(refereeIds[0]);
+        for (let index = 0; index < 5; index++) {
+            matchRefereesIds.push(refereeIds[0]);
+        }
         let matchResult;
         // Insert into Match table
         matchResult = await client.query(`
-            INSERT INTO Match (Category, Season, Association) VALUES 
-            ('Premier', '2023', 'Association A'),
-            ('Championship', '2023', 'Association B'),
-            ('League One', '2023', 'Association C'),
-            ('League Two', '2023', 'Association D')
+            INSERT INTO Match (Category, Season, Association, judgeid, date,time, field_name) VALUES 
+            ('Α', '2023', '1ος όμιλος',$1,'2023-03-02','09:00','Field A'),
+            ('Α', '2024', '1ος όμιλος',$2,'2024-02-04','10:00','Field B'),
+            ('Β', '2024', '2ος όμιλος',$3,'2024-02-04','23:00','Field C'),
+            ('Γ', '2023', '2ος όμιλος',$4,'2023-11-20','11:00','Field D'),
+            ('Κ13', '2023', '3ος όμιλος',$5,'2023-03-02','09:00','Field A'),
+            ('Κ13', '2024', '3ος όμιλος',$6,'2024-02-04','10:00','Field B'),
+            ('Κ15', '2024', '1ος όμιλος',$7,'2024-02-04','23:00','Field C'),
+            ('Κ15', '2023', '4ος όμιλος',$8,'2023-11-20','11:00','Field D'),
+            ('Κ17', '2023', '5ος όμιλος',$9,'2023-11-20','11:00','Field D')
             RETURNING MatchId;
-        `);
+        `,matchRefereesIds);
         let matchIds = matchResult.rows.map(row => row.matchid);
 
         // Insert into Belongs table
@@ -154,8 +165,8 @@ export const insertData = async () => {
         `,footballerIds);
 
  
-
-        let ParticipatesIds = footballerIds.concat(matchIds);
+        let matchParticipatesIds = matchIds.slice(0,4);
+        let ParticipatesIds = footballerIds.concat(matchParticipatesIds);
         // Insert into Participates table
         await client.query(`
             INSERT INTO Participates (MinutesPlayed, YellowCard, RedCard, Goals, OwnGoals, FootballerId, MatchId) VALUES 
@@ -165,13 +176,19 @@ export const insertData = async () => {
             (90, 1, FALSE, 3, 0, $4, $8);
         `,ParticipatesIds);
 
+
         // Insert into Play table
         await client.query(`
             INSERT INTO Play (ClubHome, ClubAway, FieldName, MatchId) VALUES 
             ('Club A', 'Club B', 'Field A', $1),
             ('Club B', 'Club A', 'Field B', $2),
             ('Club C', 'Club D', 'Field C', $3),
-            ('Club D', 'Club C', 'Field D', $4);
+            ('Club D', 'Club C', 'Field D', $4),
+            ('Club A', 'Club B', 'Field A', $5),
+            ('Club B', 'Club A', 'Field B', $6),
+            ('Club C', 'Club D', 'Field C', $7),
+            ('Club D', 'Club C', 'Field D', $8),
+            ('Club D', 'Club C', 'Field D', $9)
         `,matchIds);
 
         client.query(`
