@@ -1,0 +1,26 @@
+<%- include("../partials/header.ejs") %> 
+
+
+
+<%- include("../partials/dashboardHeader.ejs",{addLink:'/admin/anakoinwsh/addAnakoinwsh',alterLink:'/admin/anakoinwsh/alterAnakoinwsh',removeLink:'/admin/anakoinwsh/deleteAnakoinwsh'})%>
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Διαγραφή Ανακοίνωσης</h1>
+</div>
+
+<form action="/admin/anakoinwsh/deleteAnakoinwsh/proccess" method="post" id="deleteAnakoinwshForm">
+
+
+    <div class="form-group">
+        <label for="delete_announcement">Κωδικός Ανακοίνωσης</label>
+        <input type="text" class="form-control" id="delete_announcement" name="code">
+      </div>
+      
+
+    <button type="submit" class="btn btn-success mt-2" >Διαγραφή</button>
+</form>
+
+
+<%- include("../partials/dashboardFooter.ejs")  %>
+  
+ <%- include("../partials/footer.ejs") %> 

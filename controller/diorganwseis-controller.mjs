@@ -17,18 +17,14 @@ export async function diorganwseisFilter(req,res,next) {
 
   export async function showAnnouncements(req, res,next) {
     try {
-      console.log("hi")
-
+      
       // await model.getAllAnnouncements((err, rows) => {
-         
       //   for (let i=0; i<rows.length; i++){
-      //    console.log("alo")
       //     rows[i].dateannounced = rows[i].dateannounced.toISOString().split('T')[0] ;
       //     rows[i].timeannounced = rows[i].timeannounced.slice(0, 5);
       //  }
-      //   res.render('anakoinwseis/anakoinwseis.ejs', {data:rows});
+        res.render('anakoinwseis/anakoinwseis.ejs', {data: await model.getAllAnnouncements()});
       // });
-      res.render('anakoinwseis/anakoinwseis.ejs');
       //res.render('../views/anakoinwseis/anakoinwseis.ejs',{announcement:announcements});
      }
      catch (err) {

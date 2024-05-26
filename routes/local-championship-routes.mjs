@@ -128,7 +128,7 @@ router.get("/", (req, res) => {
   // });
 
   router.get("/admin/agwnas", (req,res) =>{
-    res.render("./admin/agwnas.ejs");
+    res.render("./admin/addAgwnas.ejs");
   });
 
   router.get("/admin/atomo", (req,res) =>{
@@ -140,7 +140,7 @@ router.get("/", (req, res) => {
   });
 
   router.get("/admin/anakoinwsh", (req,res) =>{
-    res.render("./admin/anakoinwsh.ejs");
+    res.render("./admin/addAnakoinwsh.ejs");
   });
 
   router.route('/diorganwseis-filter').get(diorganwseisController.diorganwseisFilter);
@@ -157,6 +157,28 @@ router.get("/", (req, res) => {
 
   router.get("/admin/agwnas/deleteAgwnas", (req,res) =>{
     res.render("./admin/deleteAgwnas.ejs");
+  });
+
+  router.get("/admin/anakoinwsh/addAnakoinwsh", (req,res) =>{
+    res.render("./admin/addAnakoinwsh.ejs");
+  });
+
+  router.get("/admin/anakoinwsh/alterAnakoinwsh", (req,res) =>{
+    res.render("./admin/alterAnakoinwsh.ejs");
+  });
+
+  router.get("/admin/anakoinwsh/deleteAnakoinwsh", (req,res) =>{
+    res.render("./admin/deleteAnakoinwsh.ejs");
+  });
+
+
+  router.route('/admin/anakoinwsh/addAnakoinwsh/proccess').post(adminController.addAnakoinwsh);
+
+  router.route('/admin/anakoinwsh/deleteAnakoinwsh/proccess').post(adminController.deleteAnakoinwsh);
+
+  router.route('/admin/anakoinwsh/alterAnakoinwsh/proccess').post(adminController.alterAnakoinwsh);
+  router.get("/management", (req,res) =>{
+    res.render("./admin/agwnas.ejs");
   });
 
 router.route('/login').get(logInController.checkAuthenticated, logInController.showLogInForm);

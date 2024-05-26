@@ -1,7 +1,7 @@
 <%- include("../partials/header.ejs") %>
 
 <h2>Ανακοινώσεις</h2>
-          <!-- <nav class="blog-pagination my-3 align-self-end" aria-label="Pagination">
+          <nav class="blog-pagination my-3 align-self-end" aria-label="Pagination">
             button will fetch older anakoinwseis
             <a class="btn btn-outline-primary rounded-pill" href="#">Older</a> 
             <a class="btn btn-outline-secondary rounded-pill disabled" aria-disabled="true">Newer</a>
@@ -15,14 +15,14 @@
       <% data.map((data)=>{ %>
         <article class="blog-post">
       <h4 class="display-7  mb-1"><%= data.title %></h4>
-      <p class="blog-post-meta"><%= data.dateannounced %>, <%= data.timeannounced %></a></p>
+      <p class="blog-post-meta"><%= data.dateannounced %>, <%= data.timeannounced %></p>
 
       <p><%= data.textinput %></p>
       <hr>
     </article>
     <% }) %>
 
-  </div> -->
+  </div>
 
 
 

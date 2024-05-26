@@ -10,7 +10,8 @@ cookie: {
     sameSite: true
 },
 resave: false,
-saveUninitilized: false
+saveUninitilized: false,
+loggedUserId: '2'
 });
 
  /********************************************************************/

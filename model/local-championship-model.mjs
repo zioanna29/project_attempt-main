@@ -85,19 +85,88 @@ export async function getAllMatches(startDate = "", endDate = "", category_strin
 }
 
 export async function getAllAnnouncements() {
-    console.log("hello")
-    const sql = `SELECT * FROM announcement;`;
+    const announcements = [];
+    let sql = `SELECT * FROM announcement;`;
     try {
         const client = await connect();
         const res = await client.query(sql);
         await client.release();
-        console.log(res.rows)
-        return res.rows; // Return the array directly
+        for (let i = 0; i < res.rows.length; i++) {
+            res.rows[i].dateannounced = res.rows[i].dateannounced.toISOString().split('T')[0];
+            res.rows[i].timeannounced = res.rows[i].timeannounced.slice(0, 5);
+            announcements.push(res.rows[i]);
+        }
+         // Return the array directly
     } catch (err) {
         console.error('Error fetching announcements:', err);
         throw err; // Re-throw the error to be handled by the caller
     }
+    return announcements;
 }
+
+export async function newAnnouncement(announcement, callback) {
+    console.log('to insert...', announcement)
+    const sql = `INSERT INTO Announcement ("title", "textinput", "dateannounced", "timeannounced", "adminid") 
+        VALUES ('${announcement.title}', '${announcement.textinput}', '${announcement.dateannounced}', '${announcement.timeannounced}','${announcement.adminid}');`;
+    try {
+        const client = await connect();
+        const res = await client.query(sql)
+        await client.release()
+        callback(null, res.rows) // επιστρέφει array
+    }
+    catch (err) {
+        callback(err, null);
+    }
+}
+
+export async function deleteAnnouncement(announcement, callback) {
+    const sql = `DELETE FROM Announcement WHERE "code" = '${announcement.code}'`;
+    try {
+        const client = await connect();
+        const res = await client.query(sql)
+        await client.release()
+        callback(null, res.rows) // επιστρέφει array
+    }
+    catch (err) {
+        callback(err, null);
+    }
+}
+
+export async function alterAnnouncement(announcement, callback) {
+    const sql_update = `UPDATE Announcement`;
+    let sql_set = ` SET `;
+    let sql_where = ` WHERE "code"='${announcement.code}';`;
+    // SET "title" = '${book.title}', author = '${book.author}', comment = '${book.comment}'
+
+    if(announcement.title != ""){
+        sql_set += `"title" = '${announcement.title}', `;
+    }
+
+    if(announcement.textinput != ""){
+        sql_set += `"textinput" = '${announcement.textinput}', `;
+    }
+
+    if(announcement.dateannounced != ""){
+        sql_set += `"dateannounced" = '${announcement.dateannounced}', `;
+    }
+
+    if(announcement.timeannounced != ""){
+        sql_set += `"timeannounced" = '${announcement.timeannounced}', `;
+    }
+
+    sql_set = sql_set.slice(0,-2);
+
+    try {
+        const client = await connect();
+        const res = await client.query(sql_update+sql_set+sql_where)
+        await client.release()
+        callback(null, res.rows) // επιστρέφει array
+    }
+    catch (err) {
+        callback(err, null);
+    }
+}
+
 
 /**************************************************************************/
 
@@ -159,15 +228,21 @@ export async function getAllAnnouncements() {
 // /**
 //  * Επιστρέφει τον χρήστη με όνομα 'username'
 //  */
-// export let getUserByUsername = async (username) => {
-//     const stmt = await sql.prepare("SELECT id, username, password FROM user WHERE username = ? LIMIT 0, 1");
-//     try {
-//         const user = await stmt.all(username);
-//         return user[0];
-//     } catch (err) {
-//         throw err;
-//     }
-// }
+export let getUserByUsername = async (username) => {
+ 
+    const sql = `SELECT id, email, password_hash FROM administrator WHERE email = '${username}'`
+
+    try {
+        const client = await connect();
+        // console.log('theclient...', client)
+        const res = await client.query(sql);
+        return res.rows[0];
+    }
+    catch (err) {
+        console.log(err);
+        callback(err, null);
+    }
+}
 
 // //Η συνάρτηση δημιουργεί έναν νέο χρήστη με password
 // export let registerUser = async function (username, password) {

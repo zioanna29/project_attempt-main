@@ -2,7 +2,7 @@
 
 
 
-<%- include("../partials/dashboardHeader.ejs",{addLink:'#',alterLink:'#',removeLink:'#'})%>
+<%- include("../partials/dashboardHeader.ejs",{addLink:'#add',alterLink:'#alter',removeLink:'#delete'})%>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
   <h1 class="h2">Ανακοίνωση</h1>
@@ -10,7 +10,6 @@
   <div class="btn-toolbar mb-2 mb-md-0">
     <div class="btn-group me-2">
       <button type="button" class="btn btn-sm btn-outline-secondary">Προσθήκη</button>
-      <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
     </div>
     <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
       <span data-feather="calendar"></span>
@@ -19,35 +18,24 @@
   </div>
 </div>
 
-<form>
+<form action="#add">
   <div class="form-group">
-    <label for="exampleFormControlInput1">Email address</label>
-    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+    <label for="add_title">Τίτλος</label>
+    <input type="title" class="form-control" id="add_title" placeholder="Δώσε έναν τίτλο.">
   </div>
+  
   <div class="form-group">
-    <label for="exampleFormControlSelect1">Example select</label>
-    <select class="form-control" id="exampleFormControlSelect1">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
-    </select>
+    <label for="add_textinput">Περιεχόμενο</label>
+    <textarea class="form-control" id="add_textinput" rows="3"></textarea>
   </div>
+</form>
+
+<form action="#delete">
   <div class="form-group">
-    <label for="exampleFormControlSelect2">Example multiple select</label>
-    <select multiple class="form-control" id="exampleFormControlSelect2">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
-    </select>
+    <label for="add_title">Κωδικός Ανακοίνωσης</label>
+    <input type="title" class="form-control" id="add_title" placeholder="Δώσε έναν τίτλο.">
   </div>
-  <div class="form-group">
-    <label for="exampleFormControlTextarea1">Example textarea</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-  </div>
+  
 </form>
 
 

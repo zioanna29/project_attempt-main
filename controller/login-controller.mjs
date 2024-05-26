@@ -3,8 +3,7 @@ import bcrypt from 'bcrypt'
 import * as userModel from "../model/local-championship-model.mjs"
 
 export let showLogInForm = function (req, res) {
-    console.log("before render")
-    res.render('/login', { model: process.env.MODEL });
+    res.render('./login.ejs', { model: process.env.MODEL });
 }
 
 export let showRegisterForm = function (req, res) {
@@ -32,17 +31,20 @@ export let doLogin = async function (req, res) {
     //συνάρτηση επιστροφής authenticated
 
     const user = await userModel.getUserByUsername(req.body.username);
-    if (user == undefined || !user.password || !user.id) {
-        res.render('login-password', { message: 'Δε βρέθηκε αυτός ο χρήστης' });
+    console.log(user)
+    if (user == undefined || !user.password_hash || !user.id) {
+        res.render('login');
     }
     else {
-        const match = await bcrypt.compare(req.body.password, user.password);
-        if (match) {
+        const match = await bcrypt.compare(req.body.password, user.password_hash);
+
+        if (req.body.password === user.password_hash) {
+            const userId = req.session.loggedUserId;
             //Θέτουμε τη μεταβλητή συνεδρίας "loggedUserId"
             req.session.loggedUserId = user.id;
             //Αν έχει τιμή η μεταβλητή req.session.originalUrl, αλλιώς όρισέ τη σε "/" 
             // res.redirect("/");            
-            const redirectTo = req.session.originalUrl || "/tasks";
+            const redirectTo = req.session.originalUrl || "/";
 
             res.redirect(redirectTo);
         }
@@ -53,6 +55,8 @@ export let doLogin = async function (req, res) {
 }
 
 export let doLogout = (req, res) => {
+    console.log("logged out")
+
     //Σημειώνουμε πως ο χρήστης δεν είναι πια συνδεδεμένος
     req.session.destroy();
     res.redirect('/');
@@ -60,7 +64,6 @@ export let doLogout = (req, res) => {
 
 //Τη χρησιμοποιούμε για να ανακατευθύνουμε στη σελίδα /login όλα τα αιτήματα από μη συνδεδεμένους χρήστες
 export let checkAuthenticated = function (req, res, next) {
-    console.log("alo")
     //Αν η μεταβλητή συνεδρίας έχει τεθεί, τότε ο χρήστης είναι συνεδεμένος
     if (req.session.loggedUserId) {
         console.log("user is authenticated", req.originalUrl);

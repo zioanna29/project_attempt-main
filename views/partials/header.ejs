@@ -63,10 +63,23 @@
                 <li><a class="dropdown-item" href="/epitropes">Ε.Ε. και Επιτροπές</a></li>
               </ul>
             </li>
+            <% if (userId) { %>
+              <li class="nav-item">
+                <a class="nav-link active" id="management" aria-current="page" href="/management">Διαχείριση</a>
+              </li>
+            <% } %>
+            
+
+
           </ul>
           
           <ul class="navbar-nav ml-auto text-right">
-            <li><button type="button" class="btn  me-lg-2" onclick = "window.location.href='/login';" id="loginButton">Σύνδεση</button></li>
+            <% if (userId) { %>
+              <li><button type="button" class="btn  me-lg-2" onclick = "window.location.href='/logout';" id="logoutButton">Αποσύνδεση</button></li>
+              <% } else { %>
+                <li><button type="button" class="btn  me-lg-2" onclick = "window.location.href='/login';" id="loginButton">Σύνδεση</button></li>
+                <% } %>
+                    
             <li><button type="button" class="btn btn-success" onclick = "window.location.href='/register';" id="registerButton">Εγγραφή</button></li>
           </ul>
         </div>
