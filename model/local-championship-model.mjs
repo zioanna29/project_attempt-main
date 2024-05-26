@@ -105,7 +105,6 @@ export async function getAllAnnouncements() {
 }
 
 export async function newAnnouncement(announcement, callback) {
-    console.log('to insert...', announcement)
     const sql = `INSERT INTO Announcement ("title", "textinput", "dateannounced", "timeannounced", "adminid") 
         VALUES ('${announcement.title}', '${announcement.textinput}', '${announcement.dateannounced}', '${announcement.timeannounced}','${announcement.adminid}');`;
     try {

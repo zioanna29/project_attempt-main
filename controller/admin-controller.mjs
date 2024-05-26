@@ -7,8 +7,6 @@ export async function addAgwnas(req,res) {
 
 
 export async function addAnakoinwsh(req,res) {
- 
-  console.log("POST /create session=", req.session);
   const adminID = req.session.loggedUserId;
   const newAnnouncement = { "title": req.body.title, "textinput": req.body.textinput, "dateannounced": req.body.dateannounced, "timeannounced": req.body.timeannounced, "adminid":adminID }
   model.newAnnouncement(newAnnouncement,

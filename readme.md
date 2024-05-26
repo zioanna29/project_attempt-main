@@ -32,7 +32,7 @@ if (insertData) {
 
 -close server with ctrl+c
 
--et insertData=false;
+-set insertData=false;
 
 -run node server.mjs
 
