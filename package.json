@@ -20,5 +20,8 @@
     "from": "^0.1.7",
     "papaparse": "^5.4.1",
     "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.7"
   }
 }
